@@ -62,7 +62,7 @@ export default function BookingSection() {
 
   useEffect(() => {
     async function fetchAvailability() {
-      const [, id] = form.selection.split(":");
+      const [kind, id] = form.selection.split(":");
 
       if (!form.date || !id) {
         setAvailableSlots([]);
@@ -75,7 +75,10 @@ export default function BookingSection() {
       update("time", "");
 
       try {
-        const data = await getAvailability(form.date, id);
+        const data = await getAvailability(
+          form.date,
+          kind === "package" ? { packageId: id } : { serviceId: id },
+        );
         setAvailableSlots(data);
       } catch (err) {
         setAvailableSlots([]);

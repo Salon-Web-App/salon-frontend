@@ -82,7 +82,7 @@ export default function StaffDetailPage({ params }) {
                   {"☆".repeat(5 - r.rating)}
                 </p>
                 {r.comment && <p className="text-sm text-gray-700 mt-1">{r.comment}</p>}
-                <p className="text-xs text-gray-400 mt-2">{r.booking?.customerName}</p>
+                <p className="text-xs text-gray-400 mt-2">{r.customerName}</p>
               </div>
             ))}
           </div>

@@ -74,19 +74,19 @@ export default function ReviewsPage() {
                 ))}
               </div>
 
-              <p className="text-charcoal/80 leading-relaxed mb-6 italic">&ldquo;{r.comment}&ldquo;</p>
+              <p className="text-charcoal/80 leading-relaxed mb-6 italic">
+                &ldquo;{r.comment}&rdquo;
+              </p>
 
-              {r.booking?.service?.name && (
+              {r.serviceName && (
                 <div className="inline-block px-3 py-1 bg-gold/10 rounded-full mb-4">
-                  <span className="text-xs font-semibold text-gold">{r.booking.service.name}</span>
+                  <span className="text-xs font-semibold text-gold">{r.serviceName}</span>
                 </div>
               )}
 
               <div className="flex items-center justify-between pt-4 border-t border-gold/10">
                 <div>
-                  <h4 className="font-bold text-charcoal">
-                    {r.booking?.customerName || "Verified Client"}
-                  </h4>
+                  <h4 className="font-bold text-charcoal">{r.customerName}</h4>
                   <p className="text-sm text-charcoal/50">{formatRelativeDate(r.createdAt)}</p>
                 </div>
               </div>
