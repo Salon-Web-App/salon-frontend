@@ -74,7 +74,7 @@ export default function ReviewsPage() {
                 ))}
               </div>
 
-              <p className="text-charcoal/80 leading-relaxed mb-6 italic">"{r.comment}"</p>
+              <p className="text-charcoal/80 leading-relaxed mb-6 italic">&ldquo;{r.comment}&ldquo;</p>
 
               {r.booking?.service?.name && (
                 <div className="inline-block px-3 py-1 bg-gold/10 rounded-full mb-4">

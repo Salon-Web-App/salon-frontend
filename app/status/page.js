@@ -153,7 +153,7 @@ export default function StatusPage() {
       {action && (
         <div className="card space-y-4">
           <p className="font-medium text-gray-900">
-            {action === "edit" ? "Reschedule" : "Cancel"} — verify it's you first
+            {action === "edit" ? "Reschedule" : "Cancel"} — verify it&apos;s you first
           </p>
 
           {otpStage !== "verified" && (

@@ -34,6 +34,7 @@ export default function StaffPage() {
             >
               <div>
                 <div className="h-56 overflow-hidden bg-gray-100 rounded-lg mb-4">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={
                       member.photoUrl ||
