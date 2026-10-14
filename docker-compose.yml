@@ -1,0 +1,10 @@
+services:
+  frontend:
+    build:
+      context: .
+      target: runtime
+    image: salon-frontend:local
+    container_name: makeup-studio-frontend
+    ports:
+      - "3001:3001"
+    restart: unless-stopped

@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  @apply bg-white text-charcoal;
+}
+
+::selection {
+  background-color: #d4af37;
+  color: white;
+}
+
+.container-app {
+  @apply w-full max-w-7xl mx-auto px-6;
+}
+
+.gold-gradient-text {
+  @apply bg-gradient-to-r from-gold via-gold-light to-rose bg-clip-text text-transparent;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-full bg-gradient-to-r from-gold to-gold-light px-8 py-4 text-white font-semibold hover:shadow-2xl hover:shadow-gold/30 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center rounded-full border-2 border-gold px-8 py-4 text-gold font-semibold hover:bg-gold hover:text-white transition-all duration-300 hover:scale-105;
+}
+
+.input-field {
+  @apply w-full h-12 px-4 rounded-lg border border-gold/20 bg-white text-charcoal focus:outline-none focus:border-gold transition-colors;
+}
+
+.card {
+  @apply rounded-2xl border border-gold/10 bg-gradient-to-br from-cream to-white p-6 shadow-sm hover:border-gold/30 hover:shadow-2xl hover:shadow-gold/10 hover:-translate-y-1 transition-all duration-500;
+}
+
+/* Card Icon Hover Animation (Scales & Rotates) */
+.card .card-icon {
+  @apply transition-all duration-300 ease-out bg-gold text-white shadow-md;
+}
+
+.card:hover .card-icon {
+  @apply scale-110 rotate-6 bg-gold-light shadow-lg shadow-gold/30;
+}
+
+.card .card-icon svg {
+  @apply transition-transform duration-300 ease-out;
+}
+
+.card:hover .card-icon svg {
+  @apply scale-110;
+}
+
+/* Number Badge Animation */
+.card .card-badge {
+  @apply transition-all duration-300 bg-gold/10 text-gold;
+}
+
+.card:hover .card-badge {
+  @apply bg-gold text-white;
+}
+
+/* Title Color Transition */
+.card .card-title {
+  @apply transition-colors duration-300 text-charcoal;
+}
+
+.card:hover .card-title {
+  @apply text-gold;
+}
+
+/* Divider Line Transition */
+.card .card-divider {
+  @apply transition-colors duration-300 bg-gray-200/60;
+}
+
+.card:hover .card-divider {
+  @apply bg-gold/30;
+}
+
+.eyebrow {
+  @apply inline-block px-4 py-2 bg-gold/10 rounded-full text-gold font-semibold text-sm tracking-wide uppercase;
+}
+
+.section-divider {
+  @apply w-24 h-1 bg-gradient-to-r from-gold to-gold-light mx-auto;
+}

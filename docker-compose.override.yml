@@ -1,0 +1,15 @@
+services:
+  frontend:
+    build:
+      context: .
+      target: dev
+    image: salon-frontend:dev
+    command: npm run dev
+    environment:
+      BACKEND_INTERNAL_URL: http://host.docker.internal:3000
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # needed on Linux
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
