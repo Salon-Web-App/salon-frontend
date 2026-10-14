@@ -19,7 +19,7 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky || true"
+    "prepare": "husky"
   },
   "dependencies": {
     "lucide-react": "^0.400.0",
