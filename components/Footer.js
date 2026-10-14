@@ -1,13 +1,5 @@
 import Link from "next/link";
-import {
-  MapPin,
-  Phone,
-  Mail,
-  Clock,
-  Facebook,
-  Instagram,
-  Heart,
-} from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Heart } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -18,12 +10,9 @@ export default function Footer() {
       <div className="container-app py-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div>
-            <h3 className="text-2xl font-bold gold-gradient-text mb-4">
-              Makeup Studio
-            </h3>
+            <h3 className="text-2xl font-bold gold-gradient-text mb-4">Makeup Studio</h3>
             <p className="text-white/70 leading-relaxed">
-              Where elegance meets expertise. Book your appointment online in
-              minutes.
+              Where elegance meets expertise. Book your appointment online in minutes.
             </p>
           </div>
 
@@ -36,26 +25,17 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/#booking"
-                  className="hover:text-gold transition-colors"
-                >
+                <Link href="/#booking" className="hover:text-gold transition-colors">
                   Book Now
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/status"
-                  className="hover:text-gold transition-colors"
-                >
+                <Link href="/status" className="hover:text-gold transition-colors">
                   My Booking
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/reviews"
-                  className="hover:text-gold transition-colors"
-                >
+                <Link href="/reviews" className="hover:text-gold transition-colors">
                   Reviews
                 </Link>
               </li>
@@ -108,9 +88,7 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10 text-white/60 text-sm">
           <div className="flex items-center gap-2">
-            <span>
-              &copy; {new Date().getFullYear()} Makeup Studio. Made with
-            </span>
+            <span>&copy; {new Date().getFullYear()} Makeup Studio. Made with</span>
             <Heart className="w-4 h-4 text-gold fill-gold" />
           </div>
         </div>

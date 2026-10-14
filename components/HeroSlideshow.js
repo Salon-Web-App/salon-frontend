@@ -43,11 +43,7 @@ export default function HeroSlideshow({ items }) {
               />
             ) : (
               // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={item.url}
-                alt={item.caption || ""}
-                className="w-full h-full object-cover"
-              />
+              <img src={item.url} alt={item.caption || ""} className="w-full h-full object-cover" />
             )}
 
             {item.caption && (
@@ -67,12 +63,7 @@ export default function HeroSlideshow({ items }) {
             aria-label="Previous slide"
             className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center transition"
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -87,18 +78,8 @@ export default function HeroSlideshow({ items }) {
             aria-label="Next slide"
             className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center transition"
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
 

@@ -4,18 +4,14 @@ const nextConfig = {
   output: "standalone",
   poweredByHeader: false,
 
-  // Dev-only proxy: makes `next dev` forward /api and /backoffice to the
-  // backend, imitating the ALB. Skipped when BACKEND_INTERNAL_URL is unset —
-  // which it always is in production images, where the ALB does the routing.
+  // Dev only. Rewrites are baked in at build time, so production images are
+  // built without BACKEND_INTERNAL_URL and the load balancer does the routing.
   async rewrites() {
     const backend = process.env.BACKEND_INTERNAL_URL;
     if (!backend) return [];
     return [
       { source: "/api/:path*", destination: `${backend}/api/:path*` },
-      {
-        source: "/backoffice/:path*",
-        destination: `${backend}/backoffice/:path*`,
-      },
+      { source: "/backoffice/:path*", destination: `${backend}/backoffice/:path*` },
     ];
   },
 };

@@ -45,9 +45,7 @@ export default function StaffDetailPage({ params }) {
         <div className="space-y-2">
           <h1 className="text-2xl font-bold text-gray-900">{staff.name}</h1>
           {staff.experience && (
-            <p className="text-sm text-brand-600 font-medium">
-              {staff.experience}
-            </p>
+            <p className="text-sm text-brand-600 font-medium">{staff.experience}</p>
           )}
           {staff.bio && <p className="text-gray-600">{staff.bio}</p>}
         </div>
@@ -55,9 +53,7 @@ export default function StaffDetailPage({ params }) {
 
       {staff.services?.length > 0 && (
         <div className="space-y-3">
-          <h2 className="text-lg font-semibold text-gray-900">
-            Services offered
-          </h2>
+          <h2 className="text-lg font-semibold text-gray-900">Services offered</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {staff.services.map((s) => (
               <Link
@@ -85,19 +81,13 @@ export default function StaffDetailPage({ params }) {
                   {"★".repeat(r.rating)}
                   {"☆".repeat(5 - r.rating)}
                 </p>
-                {r.comment && (
-                  <p className="text-sm text-gray-700 mt-1">{r.comment}</p>
-                )}
-                <p className="text-xs text-gray-400 mt-2">
-                  {r.booking?.customerName}
-                </p>
+                {r.comment && <p className="text-sm text-gray-700 mt-1">{r.comment}</p>}
+                <p className="text-xs text-gray-400 mt-2">{r.booking?.customerName}</p>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-sm text-gray-500">
-            No reviews yet for {staff.name}.
-          </p>
+          <p className="text-sm text-gray-500">No reviews yet for {staff.name}.</p>
         )}
       </div>
 

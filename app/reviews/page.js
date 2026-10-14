@@ -54,9 +54,7 @@ export default function ReviewsPage() {
   return (
     <div className="container-app space-y-10">
       <div>
-        <h1 className="text-2xl font-bold text-charcoal mb-6">
-          What our customers say
-        </h1>
+        <h1 className="text-2xl font-bold text-charcoal mb-6">What our customers say</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           {reviews.map((r) => (
             <div
@@ -76,15 +74,11 @@ export default function ReviewsPage() {
                 ))}
               </div>
 
-              <p className="text-charcoal/80 leading-relaxed mb-6 italic">
-                "{r.comment}"
-              </p>
+              <p className="text-charcoal/80 leading-relaxed mb-6 italic">"{r.comment}"</p>
 
               {r.booking?.service?.name && (
                 <div className="inline-block px-3 py-1 bg-gold/10 rounded-full mb-4">
-                  <span className="text-xs font-semibold text-gold">
-                    {r.booking.service.name}
-                  </span>
+                  <span className="text-xs font-semibold text-gold">{r.booking.service.name}</span>
                 </div>
               )}
 
@@ -93,18 +87,14 @@ export default function ReviewsPage() {
                   <h4 className="font-bold text-charcoal">
                     {r.booking?.customerName || "Verified Client"}
                   </h4>
-                  <p className="text-sm text-charcoal/50">
-                    {formatRelativeDate(r.createdAt)}
-                  </p>
+                  <p className="text-sm text-charcoal/50">{formatRelativeDate(r.createdAt)}</p>
                 </div>
               </div>
 
               <div className="absolute inset-0 bg-gradient-to-br from-gold/0 to-gold-light/0 rounded-2xl opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none" />
             </div>
           ))}
-          {reviews.length === 0 && (
-            <p className="text-sm text-charcoal/60">No reviews yet.</p>
-          )}
+          {reviews.length === 0 && <p className="text-sm text-charcoal/60">No reviews yet.</p>}
         </div>
       </div>
 
@@ -112,9 +102,7 @@ export default function ReviewsPage() {
         <h2 className="font-semibold text-charcoal mb-4">Leave a review</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <label className="block">
-            <span className="text-sm font-medium text-charcoal">
-              Application ID
-            </span>
+            <span className="text-sm font-medium text-charcoal">Application ID</span>
             <input
               className="input-field mt-1"
               value={form.applicationId}
@@ -134,9 +122,7 @@ export default function ReviewsPage() {
             <select
               className="input-field mt-1"
               value={form.rating}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, rating: Number(e.target.value) }))
-              }
+              onChange={(e) => setForm((f) => ({ ...f, rating: Number(e.target.value) }))}
             >
               {[5, 4, 3, 2, 1].map((n) => (
                 <option key={n} value={n}>
@@ -147,16 +133,12 @@ export default function ReviewsPage() {
           </label>
 
           <label className="block">
-            <span className="text-sm font-medium text-charcoal">
-              Comment (optional)
-            </span>
+            <span className="text-sm font-medium text-charcoal">Comment (optional)</span>
             <textarea
               className="input-field mt-1 h-auto py-3"
               rows={3}
               value={form.comment}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, comment: e.target.value }))
-              }
+              onChange={(e) => setForm((f) => ({ ...f, comment: e.target.value }))}
             />
           </label>
 

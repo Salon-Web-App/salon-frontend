@@ -17,18 +17,14 @@ export default function StaffPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">
-          Meet Our Master Stylists
-        </h1>
+        <h1 className="text-3xl font-bold text-gray-900">Meet Our Master Stylists</h1>
         <p className="text-sm text-gray-500 mt-1">
           Industry professionals dedicated to bringing out your best look.
         </p>
       </div>
 
       {loading ? (
-        <p className="text-sm text-gray-500 animate-pulse">
-          Loading team profiles...
-        </p>
+        <p className="text-sm text-gray-500 animate-pulse">Loading team profiles...</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {staffList.map((member) => (
@@ -47,9 +43,7 @@ export default function StaffPage() {
                     className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                   />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {member.name}
-                </h3>
+                <h3 className="text-lg font-semibold text-gray-900">{member.name}</h3>
                 <p className="text-xs text-brand-600 font-medium mt-0.5">
                   {member.role || "Senior Stylist & Colorist"}
                 </p>
@@ -60,9 +54,7 @@ export default function StaffPage() {
               </div>
 
               <div className="pt-6 mt-4 border-t border-gray-100 flex items-center justify-between">
-                <span className="text-xs text-gray-500">
-                  Expertise: Hair & Care
-                </span>
+                <span className="text-xs text-gray-500">Expertise: Hair & Care</span>
                 <Link
                   href="/#booking"
                   className="text-xs font-semibold text-brand-600 hover:text-brand-700"

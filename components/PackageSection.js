@@ -39,12 +39,8 @@ export default function PackageSection({ packages }) {
                 <Tag className="w-7 h-7 text-gold" />
               </div>
 
-              <h3 className="text-2xl font-bold text-charcoal mb-4">
-                {pkg.title}
-              </h3>
-              <p className="text-charcoal/60 leading-relaxed mb-6">
-                {pkg.description}
-              </p>
+              <h3 className="text-2xl font-bold text-charcoal mb-4">{pkg.title}</h3>
+              <p className="text-charcoal/60 leading-relaxed mb-6">{pkg.description}</p>
 
               {pkg.services?.length > 0 && (
                 <ul className="text-sm text-charcoal/60 mb-6 space-y-1">

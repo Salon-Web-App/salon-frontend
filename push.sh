@@ -1,4 +1,5 @@
-
+#!/usr/bin/env bash
+# TODO: replace with CI pipeline.
 set -euo pipefail
 
 REGION="ap-south-1"

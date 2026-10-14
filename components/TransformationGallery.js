@@ -5,20 +5,13 @@ import { useState, useMemo } from "react";
 export default function TransformationGallery({ items }) {
   const [category, setCategory] = useState("All");
 
-  const categories = useMemo(
-    () => ["All", ...new Set(items.map((i) => i.category))],
-    [items],
-  );
-  const filtered =
-    category === "All" ? items : items.filter((i) => i.category === category);
+  const categories = useMemo(() => ["All", ...new Set(items.map((i) => i.category))], [items]);
+  const filtered = category === "All" ? items : items.filter((i) => i.category === category);
 
   if (items.length === 0) return null;
 
   return (
-    <section
-      id="gallery"
-      className="py-24 bg-gradient-to-br from-cream-soft to-white"
-    >
+    <section id="gallery" className="py-24 bg-gradient-to-br from-cream-soft to-white">
       <div className="container-app">
         <div className="text-center mb-16">
           <span className="eyebrow mb-6">Our Portfolio</span>

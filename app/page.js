@@ -7,13 +7,7 @@ import { getServiceIcon } from "../lib/serviceIcons";
 import { Star, Users, Award, Quote } from "lucide-react";
 import TransformationGallery from "../components/TransformationGallery";
 import BookingSection from "../components/BookingSection";
-import {
-  getServices,
-  getStaff,
-  getReviews,
-  getTransformations,
-  getPackages,
-} from "../lib/api";
+import { getServices, getStaff, getReviews, getTransformations, getPackages } from "../lib/api";
 import PackageSection from "../components/PackageSection";
 
 function formatRelativeDate(dateStr) {
@@ -53,9 +47,7 @@ export default function HomePage() {
   }, []);
 
   const avgRating = reviews.length
-    ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(
-        1,
-      )
+    ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
     : "5.0";
 
   return (
@@ -66,16 +58,13 @@ export default function HomePage() {
         <div className="absolute bottom-20 left-20 w-[500px] h-[500px] bg-rose/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="container-app relative z-10 py-24 text-center">
-          <h1 className="text-6xl md:text-8xl font-bold text-charcoal leading-none mb-4">
-            Beauty
-          </h1>
+          <h1 className="text-6xl md:text-8xl font-bold text-charcoal leading-none mb-4">Beauty</h1>
           <h1 className="text-6xl md:text-8xl font-bold gold-gradient-text leading-none mb-8">
             Redefined
           </h1>
           <div className="section-divider mb-8" />
           <p className="text-xl md:text-2xl text-charcoal/70 mb-12 max-w-3xl mx-auto font-light">
-            Where elegance meets expertise. Book your appointment online in
-            minutes.
+            Where elegance meets expertise. Book your appointment online in minutes.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
@@ -93,9 +82,7 @@ export default function HomePage() {
                 <Star className="w-6 h-6 text-gold fill-gold" />
               </div>
               <div className="text-left">
-                <div className="text-3xl font-bold text-charcoal">
-                  {avgRating}
-                </div>
+                <div className="text-3xl font-bold text-charcoal">{avgRating}</div>
                 <div className="text-sm text-charcoal/60">Rating</div>
               </div>
             </div>
@@ -104,9 +91,7 @@ export default function HomePage() {
                 <Users className="w-6 h-6 text-gold" />
               </div>
               <div className="text-left">
-                <div className="text-3xl font-bold text-charcoal">
-                  {reviews.length}+
-                </div>
+                <div className="text-3xl font-bold text-charcoal">{reviews.length}+</div>
                 <div className="text-sm text-charcoal/60">Happy Clients</div>
               </div>
             </div>
@@ -115,9 +100,7 @@ export default function HomePage() {
                 <Award className="w-6 h-6 text-gold" />
               </div>
               <div className="text-left">
-                <div className="text-3xl font-bold text-charcoal">
-                  {staff.length}
-                </div>
+                <div className="text-3xl font-bold text-charcoal">{staff.length}</div>
                 <div className="text-sm text-charcoal/60">Expert Stylists</div>
               </div>
             </div>
@@ -171,9 +154,7 @@ export default function HomePage() {
                     <span className="text-2xl font-bold text-gold">
                       ${Number(service.price).toFixed(0)}
                     </span>
-                    <span className="text-xs text-charcoal/50">
-                      {service.durationMinutes} min
-                    </span>
+                    <span className="text-xs text-charcoal/50">{service.durationMinutes} min</span>
                   </div>
 
                   <div className="absolute inset-0 bg-gradient-to-br from-gold/0 to-gold-light/0 rounded-2xl opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none" />
@@ -222,20 +203,15 @@ export default function HomePage() {
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                   <h3 className="text-2xl font-bold mb-1">{member.name}</h3>
                   {member.specialty && (
-                    <p className="text-gold font-semibold text-sm mb-2">
-                      {member.specialty}
-                    </p>
+                    <p className="text-gold font-semibold text-sm mb-2">{member.specialty}</p>
                   )}
                   {member.experience && (
                     <div className="text-xs text-white/80 mb-3">
-                      <span className="font-semibold">{member.experience}</span>{" "}
-                      Experience
+                      <span className="font-semibold">{member.experience}</span> Experience
                     </div>
                   )}
                   {member.bio && (
-                    <p className="text-sm text-white/90 leading-relaxed">
-                      {member.bio}
-                    </p>
+                    <p className="text-sm text-white/90 leading-relaxed">{member.bio}</p>
                   )}
                 </div>
 
@@ -247,10 +223,7 @@ export default function HomePage() {
       </section>
 
       {/* Reviews */}
-      <section
-        id="reviews"
-        className="py-24 bg-gradient-to-br from-cream via-white to-cream-soft"
-      >
+      <section id="reviews" className="py-24 bg-gradient-to-br from-cream via-white to-cream-soft">
         <div className="container-app">
           <div className="text-center mb-16">
             <span className="eyebrow mb-6">Testimonials</span>
@@ -278,9 +251,7 @@ export default function HomePage() {
                   ))}
                 </div>
 
-                <p className="text-charcoal/80 leading-relaxed mb-6 italic">
-                  "{r.comment}"
-                </p>
+                <p className="text-charcoal/80 leading-relaxed mb-6 italic">"{r.comment}"</p>
 
                 {r.booking?.service?.name && (
                   <div className="inline-block px-3 py-1 bg-gold/10 rounded-full mb-4">
@@ -295,9 +266,7 @@ export default function HomePage() {
                     <h4 className="font-bold text-charcoal">
                       {r.booking?.customerName || "Verified Client"}
                     </h4>
-                    <p className="text-sm text-charcoal/50">
-                      {formatRelativeDate(r.createdAt)}
-                    </p>
+                    <p className="text-sm text-charcoal/50">{formatRelativeDate(r.createdAt)}</p>
                   </div>
                 </div>
 
@@ -305,9 +274,7 @@ export default function HomePage() {
               </div>
             ))}
             {reviews.length === 0 && (
-              <p className="text-charcoal/60 col-span-full text-center">
-                No reviews yet.
-              </p>
+              <p className="text-charcoal/60 col-span-full text-center">No reviews yet.</p>
             )}
           </div>
         </div>

@@ -2,14 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import {
-  User,
-  Phone,
-  Mail,
-  Calendar,
-  Clock,
-  MessageSquare,
-} from "lucide-react";
+import { User, Phone, Mail, Calendar, Clock, MessageSquare } from "lucide-react";
 
 import {
   getServices,
@@ -19,16 +12,6 @@ import {
   verifyOtp,
   createBooking,
 } from "../lib/api";
-
-function to24Hour(label) {
-  const [time, period] = label.split(" ");
-  let [h, m] = time.split(":").map(Number);
-
-  if (period === "PM" && h !== 12) h += 12;
-  if (period === "AM" && h === 12) h = 0;
-
-  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
-}
 
 export default function BookingSection() {
   const searchParams = useSearchParams();
@@ -56,72 +39,32 @@ export default function BookingSection() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  /*
-   * Load services and packages
-   */
   useEffect(() => {
-    Promise.all([
-      getServices().catch(() => []),
-      getPackages().catch(() => []),
-    ]).then(([s, p]) => {
+    Promise.all([getServices().catch(() => []), getPackages().catch(() => [])]).then(([s, p]) => {
       setServices(s);
       setPackages(p);
     });
   }, []);
 
-  /*
-   * Read service/package from URL
-   */
+  // Preselect from links like /?serviceId=... or /?package=...
   useEffect(() => {
     const serviceId = searchParams.get("serviceId");
     const packageId = searchParams.get("package");
 
-    if (serviceId) {
-      update("selection", `service:${serviceId}`);
-    }
-
-    if (packageId) {
-      update("selection", `package:${packageId}`);
-    }
-
+    if (serviceId) update("selection", `service:${serviceId}`);
+    if (packageId) update("selection", `package:${packageId}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  /*
-   * Update form
-   */
   function update(field, value) {
-    setForm((f) => ({
-      ...f,
-      [field]: value,
-    }));
+    setForm((f) => ({ ...f, [field]: value }));
   }
 
-  /*
-   * Fetch availability whenever:
-   *
-   * 1. Date changes
-   * 2. Service/package changes
-   */
   useEffect(() => {
     async function fetchAvailability() {
-      // No date selected
-      if (!form.date) {
-        setAvailableSlots([]);
-        update("time", "");
-        return;
-      }
+      const [, id] = form.selection.split(":");
 
-      // No service/package selected
-      if (!form.selection) {
-        setAvailableSlots([]);
-        update("time", "");
-        return;
-      }
-
-      const [kind, id] = form.selection.split(":");
-
-      if (!id) {
+      if (!form.date || !id) {
         setAvailableSlots([]);
         update("time", "");
         return;
@@ -129,14 +72,10 @@ export default function BookingSection() {
 
       setAvailabilityLoading(true);
       setAvailableSlots([]);
-
-      // Clear previously selected time
       update("time", "");
 
       try {
-
         const data = await getAvailability(form.date, id);
-
         setAvailableSlots(data);
       } catch (err) {
         setAvailableSlots([]);
@@ -149,27 +88,15 @@ export default function BookingSection() {
     fetchAvailability();
   }, [form.date, form.selection]);
 
-  /*
-   * Form validation before OTP
-   */
   const readyForOtp =
-    form.name &&
-    form.phone &&
-    form.email &&
-    form.selection &&
-    form.date &&
-    form.time;
+    form.name && form.phone && form.email && form.selection && form.date && form.time;
 
-  /*
-   * Send OTP
-   */
   async function handleSendCode() {
     setError("");
     setLoading(true);
 
     try {
       await sendOtp(form.email, "email", "booking_create");
-
       setOtpStage("sent");
     } catch (err) {
       setError(err.message);
@@ -178,20 +105,12 @@ export default function BookingSection() {
     }
   }
 
-  /*
-   * Verify OTP
-   */
   async function handleVerify() {
     setError("");
     setLoading(true);
 
     try {
-      const { verificationToken: token } = await verifyOtp(
-        form.email,
-        code,
-        "booking_create",
-      );
-
+      const { verificationToken: token } = await verifyOtp(form.email, code, "booking_create");
       setVerificationToken(token);
       setOtpStage("verified");
     } catch (err) {
@@ -201,9 +120,6 @@ export default function BookingSection() {
     }
   }
 
-  /*
-   * Confirm booking
-   */
   async function handleConfirm() {
     setError("");
     setLoading(true);
@@ -211,18 +127,13 @@ export default function BookingSection() {
     try {
       const [kind, id] = form.selection.split(":");
 
-      const startTime = form.time;
-
       const booking = await createBooking({
         customerName: form.name,
         customerPhone: form.phone,
         customerEmail: form.email,
-
         ...(kind === "package" ? { packageId: id } : { serviceId: id }),
-
-        startTime,
+        startTime: form.time,
         notes: form.notes,
-
         verificationToken,
         verifiedContact: form.email,
       });
@@ -235,26 +146,16 @@ export default function BookingSection() {
     }
   }
 
-  /*
-   * Booking successfully created
-   */
   if (applicationId) {
     return (
-      <section
-        id="booking"
-        className="py-24 bg-gradient-to-br from-cream-soft to-white"
-      >
+      <section id="booking" className="py-24 bg-gradient-to-br from-cream-soft to-white">
         <div className="max-w-2xl mx-auto px-6">
           <div className="bg-white p-8 md:p-12 rounded-3xl shadow-2xl border border-gold/10 text-center">
-            <p className="text-2xl font-bold text-charcoal mb-2">
-              Booking confirmed! 🎉
-            </p>
+            <p className="text-2xl font-bold text-charcoal mb-2">Booking confirmed! 🎉</p>
 
             <p className="text-charcoal/60 mb-4">Your application ID is</p>
 
-            <p className="text-3xl font-mono font-bold text-gold">
-              {applicationId}
-            </p>
+            <p className="text-3xl font-mono font-bold text-gold">{applicationId}</p>
 
             <p className="text-sm text-charcoal/50 mt-4">
               Save this ID to check your status or make changes later.
@@ -289,9 +190,7 @@ export default function BookingSection() {
 
         <div className="bg-white p-8 md:p-12 rounded-3xl shadow-2xl border border-gold/10">
           <div className="space-y-6">
-            {/* Name + Phone */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Name */}
               <div className="relative">
                 <label className="block text-sm font-semibold text-charcoal mb-2">
                   Full Name *
@@ -309,7 +208,6 @@ export default function BookingSection() {
                 </div>
               </div>
 
-              {/* Phone */}
               <div className="relative">
                 <label className="block text-sm font-semibold text-charcoal mb-2">
                   Phone Number *
@@ -328,7 +226,6 @@ export default function BookingSection() {
               </div>
             </div>
 
-            {/* Email */}
             <div className="relative">
               <label className="block text-sm font-semibold text-charcoal mb-2">
                 Email Address *
@@ -347,7 +244,6 @@ export default function BookingSection() {
               </div>
             </div>
 
-            {/* Service / Package */}
             <div className="relative">
               <label className="block text-sm font-semibold text-charcoal mb-2">
                 Select Service or Package *
@@ -382,9 +278,7 @@ export default function BookingSection() {
               </select>
             </div>
 
-            {/* Date + Time */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Date */}
               <div className="relative">
                 <label className="block text-sm font-semibold text-charcoal mb-2">
                   Preferred Date *
@@ -403,7 +297,6 @@ export default function BookingSection() {
                 </div>
               </div>
 
-              {/* Time */}
               <div className="relative">
                 <label className="block text-sm font-semibold text-charcoal mb-2">
                   Preferred Time *
@@ -416,32 +309,21 @@ export default function BookingSection() {
                     className="w-full h-12 pl-11 pr-4 border border-gold/20 rounded-lg focus:outline-none focus:border-gold transition-colors bg-white text-charcoal disabled:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-400"
                     value={form.time}
                     onChange={(e) => update("time", e.target.value)}
-                    disabled={
-                      !form.date || !form.selection || availabilityLoading
-                    }
+                    disabled={!form.date || !form.selection || availabilityLoading}
                   >
-                    {/* No date */}
                     {!form.date && <option value="">Select date first</option>}
 
-                    {/* Date selected but no service */}
-                    {form.date && !form.selection && (
-                      <option value="">Select service first</option>
-                    )}
+                    {form.date && !form.selection && <option value="">Select service first</option>}
 
-                    {/* Loading */}
                     {form.date && form.selection && availabilityLoading && (
                       <option value="">Loading available times...</option>
                     )}
 
-                    {/* No loading and no slots */}
                     {form.date &&
                       form.selection &&
                       !availabilityLoading &&
-                      availableSlots.length === 0 && (
-                        <option value="">No slots available</option>
-                      )}
+                      availableSlots.length === 0 && <option value="">No slots available</option>}
 
-                    {/* Available slots */}
                     {form.date &&
                       form.selection &&
                       !availabilityLoading &&
@@ -449,21 +331,17 @@ export default function BookingSection() {
                         <>
                           <option value="">Select time</option>
 
-                          {availableSlots.map((slot) => {
-                            const startTime = new Date(slot.startTime);
-
-                            return (
-                              <option
-                                key={`${slot.startTime}-${slot.staffId}`}
-                                value={slot.startTime}
-                              >
-                                {startTime.toLocaleTimeString([], {
-                                  hour: "2-digit",
-                                  minute: "2-digit",
-                                })}
-                              </option>
-                            );
-                          })}
+                          {availableSlots.map((slot) => (
+                            <option
+                              key={`${slot.startTime}-${slot.staffId}`}
+                              value={slot.startTime}
+                            >
+                              {new Date(slot.startTime).toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </option>
+                          ))}
                         </>
                       )}
                   </select>
@@ -471,7 +349,6 @@ export default function BookingSection() {
               </div>
             </div>
 
-            {/* Notes */}
             <div className="relative">
               <label className="block text-sm font-semibold text-charcoal mb-2">
                 Additional Message
@@ -490,13 +367,10 @@ export default function BookingSection() {
               </div>
             </div>
 
-            {/* Error */}
             {error && <p className="text-sm text-red-600">{error}</p>}
 
-            {/* OTP */}
             {otpStage !== "verified" && (
               <div className="pt-2">
-                {/* Send OTP */}
                 {otpStage === "idle" && (
                   <button
                     type="button"
@@ -508,7 +382,6 @@ export default function BookingSection() {
                   </button>
                 )}
 
-                {/* Enter OTP */}
                 {otpStage === "sent" && (
                   <div className="flex flex-col sm:flex-row gap-3">
                     <input
@@ -517,9 +390,7 @@ export default function BookingSection() {
                       maxLength={6}
                       placeholder="6-digit code"
                       value={code}
-                      onChange={(e) =>
-                        setCode(e.target.value.replace(/\D/g, ""))
-                      }
+                      onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
                     />
 
                     <button
@@ -535,7 +406,6 @@ export default function BookingSection() {
               </div>
             )}
 
-            {/* Confirm */}
             {otpStage === "verified" && (
               <button
                 type="button"
@@ -549,7 +419,6 @@ export default function BookingSection() {
           </div>
         </div>
 
-        {/* Phone */}
         <div className="text-center mt-12">
           <p className="text-charcoal/60 mb-4">Or call us directly at</p>
 

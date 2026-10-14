@@ -7,9 +7,7 @@ export default function ServiceCard({ service, index = 1 }) {
     description:
       service?.description ||
       "Complete bridal transformation with premium products and expert styling for your special day",
-    price: service?.price
-      ? `NPR ${Number(service.price).toLocaleString()}`
-      : "NPR 15,000",
+    price: service?.price ? `NPR ${Number(service.price).toLocaleString()}` : "NPR 15,000",
     duration: service?.duration || "3-4 hours",
     indexNumber: String(service?.id || index).padStart(2, "0"),
   };
@@ -40,18 +38,14 @@ export default function ServiceCard({ service, index = 1 }) {
       </h3>
 
       {/* Description */}
-      <p className="text-sm text-gray-500 leading-relaxed mb-6">
-        {cardData.description}
-      </p>
+      <p className="text-sm text-gray-500 leading-relaxed mb-6">{cardData.description}</p>
 
       {/* Divider */}
       <div className="h-px w-full bg-gray-200/60 mb-4 transition-colors duration-300 group-hover:bg-[#D4AF37]/30" />
 
       {/* Footer: Price & Duration */}
       <div className="flex items-baseline justify-between">
-        <span className="text-xl font-bold text-[#D4AF37]">
-          {cardData.price}
-        </span>
+        <span className="text-xl font-bold text-[#D4AF37]">{cardData.price}</span>
         <span className="text-xs text-gray-400">{cardData.duration}</span>
       </div>
     </div>
